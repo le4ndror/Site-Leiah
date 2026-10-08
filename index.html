@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LEIAH — Laboratório de Eletrônica, Informática Aplicada e Humanidades | IFCE Maranguape</title>
+<meta name="description" content="O LEIAH é o laboratório de pesquisa do IFCE Campus Maranguape que une eletrônica, informática aplicada e humanidades. Conheça as frentes de pesquisa do ciclo 2025–2026.">
+<link rel="icon" href="assets/leiah-icon.png">
+<style>
+:root{
+  /* Paleta extraída da marca (LEIAH-2026): navy da base + as cinco cores dos fragmentos */
+  --navy:#050A30;
+  --navy-2:#0A1145;
+  --navy-3:#111A5C;
+
+  --blue:#2E9BD6;
+  --purple:#A276C4;
+  --teal:#1C9CA8;
+  --red:#EE3049;
+  --lime:#A9CC52;
+
+  --accent:var(--blue);   /* cor de chrome padrão */
+  --c:var(--accent);      /* cor contextual — sobrescrita por eixo/card */
+
+  --white:#FFFFFF;
+  --ink:#C9CEE8;
+  --ink-dim:#8A92BE;
+  --line:rgba(255,255,255,.10);
+  --line-strong:rgba(255,255,255,.18);
+  --max:1160px;
+  --sans:"Inter","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+
+/* cores contextuais: aplicadas a eixos e aos cards das frentes correspondentes */
+.c-blue{--c:var(--blue)}
+.c-purple{--c:var(--purple)}
+.c-teal{--c:var(--teal)}
+.c-red{--c:var(--red)}
+.c-lime{--c:var(--lime)}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--navy);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:17px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+
+.wrap{width:100%;max-width:var(--max);margin:0 auto;padding:0 24px}
+
+/* ---------- eyebrow / headings ---------- */
+.eyebrow{
+  font-family:var(--mono);
+  font-size:.72rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--c);
+  display:flex;align-items:center;gap:12px;
+  margin:0 0 18px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--c),transparent);opacity:.55}
+
+h1,h2,h3,h4{color:var(--white);font-weight:700;letter-spacing:-.02em;line-height:1.15;margin:0}
+h2{font-size:clamp(1.75rem,3.6vw,2.6rem);margin-bottom:14px}
+h3{font-size:1.15rem;letter-spacing:-.01em}
+.lede{font-size:clamp(1.02rem,1.8vw,1.2rem);color:var(--ink);max-width:62ch}
+
+section{padding:clamp(72px,9vw,120px) 0;position:relative}
+.rule{height:1px;background:var(--line);border:0;margin:0}
+
+/* ---------- nav ---------- */
+header.nav{
+  position:sticky;top:0;z-index:50;
+  background:rgba(5,10,48,.82);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:24px;height:66px}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none}
+.brand img{width:28px;height:28px;object-fit:contain}
+.brand b{color:var(--white);font-size:1.05rem;letter-spacing:.06em}
+.brand span{font-family:var(--mono);font-size:.66rem;color:var(--ink-dim);letter-spacing:.14em;text-transform:uppercase}
+nav ul{display:flex;gap:26px;list-style:none;margin:0;padding:0}
+nav a{
+  font-size:.86rem;color:var(--ink-dim);text-decoration:none;
+  padding:6px 0;border-bottom:1.5px solid transparent;transition:.2s;
+}
+nav a:hover{color:var(--white);border-bottom-color:var(--accent)}
+@media(max-width:860px){nav{display:none}}
+
+/* ---------- hero ---------- */
+.hero{
+  padding:clamp(80px,11vw,150px) 0 clamp(70px,8vw,110px);
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(760px 460px at 74% 6%, rgba(46,155,214,.20), transparent 62%),
+    radial-gradient(560px 400px at 92% 40%, rgba(162,118,196,.16), transparent 66%),
+    radial-gradient(520px 380px at 60% 78%, rgba(169,204,82,.10), transparent 68%),
+    radial-gradient(700px 480px at 6% 96%, rgba(17,26,92,.85), transparent 65%);
+  pointer-events:none;
+}
+.grid-bg{
+  position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:radial-gradient(ellipse 90% 70% at 50% 30%,#000 30%,transparent 78%);
+  -webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 30%,#000 30%,transparent 78%);
+}
+.hero-in{position:relative;display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:center}
+@media(max-width:900px){.hero-in{grid-template-columns:1fr;gap:44px}}
+
+.tag{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--white);
+  border:1px solid var(--line-strong);border-radius:999px;
+  padding:7px 16px;margin-bottom:28px;
+  background:rgba(255,255,255,.03);
+}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(46,155,214,.20)}
+
+.wordmark{
+  font-size:clamp(3.4rem,10.5vw,7.2rem);
+  font-weight:800;letter-spacing:-.045em;line-height:.92;
+  color:var(--white);margin:0 0 6px;
+}
+.wordmark em{font-style:normal;color:inherit}
+.expand{
+  font-size:clamp(1.05rem,2.3vw,1.55rem);
+  color:var(--white);font-weight:600;letter-spacing:-.015em;
+  margin:0 0 22px;max-width:22ch;line-height:1.28;
+}
+.hero p.lede{margin:0 0 34px}
+.hero-cta{display:flex;flex-wrap:wrap;gap:14px}
+.btn{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:13px 24px;border-radius:8px;text-decoration:none;
+  font-size:.92rem;font-weight:600;transition:.2s;
+}
+.btn-p{background:var(--accent);color:#04122a;box-shadow:0 6px 24px rgba(46,155,214,.30)}
+.btn-p:hover{background:#4FB2E6;transform:translateY(-2px)}
+.btn-s{border:1px solid var(--line-strong);color:var(--white)}
+.btn-s:hover{border-color:var(--accent);background:rgba(46,155,214,.10)}
+
+.hero-mark{justify-self:center;width:min(430px,80vw);filter:drop-shadow(0 14px 44px rgba(0,0,0,.45))}
+.hero-mark img{width:100%;animation:float 7s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@media(prefers-reduced-motion:reduce){.hero-mark img{animation:none}}
+
+/* ---------- stats ---------- */
+.stats{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(255,255,255,.015)}
+.stats-in{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line)}
+@media(max-width:820px){.stats-in{grid-template-columns:repeat(2,1fr)}}
+.stat{background:var(--navy);padding:34px 26px}
+.stat b{display:block;font-size:clamp(2.1rem,4.6vw,3rem);color:var(--white);font-weight:800;letter-spacing:-.03em;line-height:1}
+.stat b i{font-style:normal;color:var(--c)}
+.stat span{display:block;margin-top:9px;font-size:.83rem;color:var(--ink-dim);line-height:1.45}
+
+/* ---------- sobre ---------- */
+.two{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(36px,6vw,80px);align-items:start}
+@media(max-width:900px){.two{grid-template-columns:1fr;gap:32px}}
+.two p{margin:0 0 18px}
+.two p:last-child{margin-bottom:0}
+.pull{
+  border-left:2px solid var(--accent);padding:4px 0 4px 22px;
+  color:var(--white);font-size:1.12rem;font-weight:500;line-height:1.5;letter-spacing:-.01em;
+}
+
+/* ---------- eixos ---------- */
+/* 5 eixos: 3 na primeira linha, 2 na segunda — sem célula vazia */
+.axes{display:grid;grid-template-columns:1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+@media(min-width:620px){
+  .axes{grid-template-columns:repeat(2,1fr)}
+  .axis:nth-child(5){grid-column:span 2}
+}
+@media(min-width:960px){
+  .axes{grid-template-columns:repeat(6,1fr)}
+  .axis{grid-column:span 2}
+  .axis:nth-child(4),.axis:nth-child(5){grid-column:span 3}
+}
+.axis{background:var(--navy);padding:30px 26px;transition:.25s}
+.axis:hover{background:var(--navy-2)}
+.axis .n{font-family:var(--mono);font-size:.72rem;color:var(--c);letter-spacing:.14em}
+.axis h3{margin:12px 0 9px;font-size:1.05rem}
+.axis p{margin:0;font-size:.9rem;color:var(--ink-dim);line-height:1.55}
+
+/* ---------- projetos ---------- */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:20px}
+.card{
+  border:1px solid var(--line);border-radius:14px;
+  background:linear-gradient(160deg,rgba(255,255,255,.035),rgba(255,255,255,.008));
+  padding:28px 26px 26px;position:relative;overflow:hidden;transition:.28s;
+  display:flex;flex-direction:column;
+}
+.card::after{
+  content:"";position:absolute;left:0;top:0;height:2px;width:0;background:var(--c);transition:width .35s ease;
+}
+.card:hover{border-color:var(--line-strong);transform:translateY(-4px)}
+.card:hover::after{width:100%}
+.card .meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.chip{
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;
+  padding:4px 10px;border-radius:5px;border:1px solid var(--line-strong);color:var(--ink-dim);
+}
+.chip.on{border-color:var(--c);color:var(--c);background:transparent}
+.card h3{font-size:1.08rem;line-height:1.32;margin-bottom:12px}
+.card p{margin:0 0 18px;font-size:.9rem;color:var(--ink-dim);line-height:1.6;flex:1}
+.who{
+  display:flex;align-items:center;gap:11px;padding-top:16px;border-top:1px solid var(--line);
+  font-size:.82rem;color:var(--ink-dim);
+}
+.who .av{
+  width:30px;height:30px;flex:0 0 30px;border-radius:50%;
+  background:var(--c);
+  color:#04122a;font-size:.74rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;letter-spacing:.02em;
+}
+.who strong{color:var(--white);font-weight:600;display:block;font-size:.86rem}
+
+/* ---------- timeline ---------- */
+.tl{position:relative;padding-left:32px}
+.tl::before{content:"";position:absolute;left:5px;top:8px;bottom:8px;width:1px;background:linear-gradient(180deg,var(--red),var(--purple),var(--blue),var(--teal),var(--lime))}
+.tl-item{position:relative;padding-bottom:40px}
+.tl-item:last-child{padding-bottom:0}
+.tl-item::before{
+  content:"";position:absolute;left:-32px;top:7px;width:11px;height:11px;border-radius:50%;
+  background:var(--navy);border:2px solid var(--c);
+}
+.tl-year{font-family:var(--mono);font-size:.78rem;letter-spacing:.16em;color:var(--c);margin-bottom:8px}
+.tl-item h3{font-size:1.06rem;margin-bottom:9px}
+.tl-item p{margin:0;font-size:.9rem;color:var(--ink-dim);line-height:1.6}
+.tl-item p b{color:var(--ink);font-weight:600}
+
+/* ---------- regras ---------- */
+.rules-sec{background:linear-gradient(180deg,var(--navy),var(--navy-2) 55%,var(--navy))}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:16px;margin-top:34px}
+.rule-card{
+  border:1px solid var(--line);border-left:2px solid var(--c);border-radius:0 10px 10px 0;
+  padding:20px 22px;background:rgba(255,255,255,.02);
+}
+.rule-card span{font-family:var(--mono);font-size:.68rem;color:var(--c);letter-spacing:.14em;display:block;margin-bottom:8px}
+.rule-card p{margin:0;color:var(--white);font-size:.94rem;line-height:1.5;font-weight:500}
+
+/* ---------- equipe ---------- */
+.people{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:36px}
+.person{border:1px solid var(--line);border-radius:12px;padding:24px 22px;background:rgba(255,255,255,.02)}
+.person .av{
+  width:44px;height:44px;border-radius:50%;margin-bottom:14px;
+  background:var(--c);color:#04122a;
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.95rem;
+}
+.person strong{display:block;color:var(--white);font-size:.98rem;line-height:1.3}
+.person span{display:block;margin-top:6px;font-size:.83rem;color:var(--ink-dim);line-height:1.5}
+
+/* ---------- cta ---------- */
+.cta{
+  border:1px solid var(--line-strong);border-radius:18px;
+  padding:clamp(38px,6vw,62px);text-align:center;position:relative;overflow:hidden;
+  background:radial-gradient(700px 320px at 50% 0%,rgba(46,155,214,.18),transparent 70%),rgba(255,255,255,.02);
+}
+.cta h2{max-width:20ch;margin:0 auto 16px}
+.cta p{max-width:56ch;margin:0 auto 30px;color:var(--ink)}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--line);padding:52px 0 40px;background:rgba(0,0,0,.22)}
+.foot{display:flex;flex-wrap:wrap;gap:32px;justify-content:space-between;align-items:flex-start}
+.foot .brand{margin-bottom:14px}
+.foot p{margin:0;font-size:.85rem;color:var(--ink-dim);max-width:38ch;line-height:1.6}
+.foot-col h4{font-size:.72rem;font-family:var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:12px;font-weight:500}
+.foot-col a,.foot-col span{display:block;font-size:.88rem;color:var(--ink);text-decoration:none;margin-bottom:7px}
+.foot-col a:hover{color:var(--accent)}
+.copy{margin-top:44px;padding-top:24px;border-top:1px solid var(--line);font-size:.79rem;color:var(--ink-dim);display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between}
+
+/* ---------- reveal ----------
+   Conteúdo é visível por padrão. A animação só é aplicada quando o JS
+   confirma suporte (classe .js na raiz), para que nada suma sem script. */
+.js .rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.js .rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.js .rv{opacity:1;transform:none;transition:none}}
+@media print{.js .rv{opacity:1;transform:none}}
+</style>
+<script>
+/* Marca a raiz antes da pintura: só então o CSS esconde os blocos .rv para animá-los.
+   Se o JS não rodar, a página continua inteiramente visível. */
+if('IntersectionObserver' in window){document.documentElement.className+=' js';}
+</script>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#topo">
+      <img src="assets/leiah-icon.png" alt="">
+      <span style="display:flex;flex-direction:column;line-height:1.1">
+        <b>LEIAH</b>
+        <span>IFCE Maranguape</span>
+      </span>
+    </a>
+    <nav>
+      <ul>
+        <li><a href="#sobre">O laboratório</a></li>
+        <li><a href="#eixos">Eixos</a></li>
+        <li><a href="#projetos">Em andamento</a></li>
+        <li><a href="#finalizados">Finalizados</a></li>
+        <li><a href="#trajetoria">Trajetória</a></li>
+        <li><a href="#equipe">Equipe</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<div class="hero" id="topo">
+  <div class="grid-bg"></div>
+  <div class="wrap hero-in">
+    <div>
+      <span class="tag"><span class="dot"></span> Ciclo 2025 – 2026 · Release</span>
+      <h1 class="wordmark">LEIA<em>H</em></h1>
+      <p class="expand">Laboratório de Eletrônica, Informática Aplicada e&nbsp;Humanidades</p>
+      <p class="lede">
+        No IFCE Campus Maranguape, estudantes do ensino médio integrado e da graduação
+        constroem tecnologia que responde a perguntas reais: como tornar uma avaliação
+        acessível, como um acervo histórico vira dado, como a IA entra na sala de aula sem
+        apagar o pensamento crítico. Quatro frentes de pesquisa em andamento e cinco já concluídas —
+        e um laboratório onde exatas e humanidades trabalham na mesma bancada.
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn-p" href="#projetos">Ver as frentes de pesquisa &rarr;</a>
+        <a class="btn btn-s" href="#sobre">O que é o LEIAH</a>
+      </div>
+    </div>
+    <div class="hero-mark">
+      <img src="assets/leiah-mark.png" alt="Marca do LEIAH: circuito eletrônico formando um olho">
+    </div>
+  </div>
+</div>
+
+<!-- ============ STATS ============ -->
+<div class="stats">
+  <div class="wrap">
+    <div class="stats-in">
+      <div class="stat rv"><b>4</b><span>frentes de pesquisa em andamento</span></div>
+      <div class="stat rv c-lime"><b>16<i>+</i></b><span>edições da ONHB catalogadas em banco de dados relacional</span></div>
+      <div class="stat rv"><b>2</b><span>grandes áreas: Ciências Exatas e da Terra + Multidisciplinar</span></div>
+      <div class="stat rv"><b>2023</b><span>ano de consolidação do laboratório, ainda como LEIA</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SOBRE ============ -->
+<section id="sobre">
+  <div class="wrap two">
+    <div>
+      <p class="eyebrow">O laboratório</p>
+      <h2>Um "H" que muda tudo.</h2>
+    </div>
+    <div>
+      <p class="pull">
+        O laboratório nasceu como <strong style="color:#fff">LEIA</strong> — Eletrônica e Informática
+        Aplicada. Ganhou o <strong style="color:var(--lime)">H</strong> de Humanidades quando ficou
+        claro que os problemas que valiam a pena não cabiam só na engenharia.
+      </p>
+      <p style="margin-top:26px">
+        A marca conta a mesma história: uma cabeça montada com fragmentos de cores diferentes,
+        conectados por uma rede de nós — e uma parte deles ainda solta, em movimento. Cinco cores,
+        cinco frentes de conhecimento que só fazem sentido juntas.
+      </p>
+      <p>
+        O LEIAH é o laboratório de pesquisa do IFCE Campus Maranguape onde iniciação científica
+        deixa de ser exercício e vira produto. Cada bolsista conduz uma frente própria, com
+        cronograma de doze meses, orientação semanal, registro mensal de desenvolvimento e
+        entrega pública ao final — resumo expandido, artigo em evento, plataforma no ar.
+      </p>
+      <p>
+        O que distingue o laboratório é a mistura deliberada. Na mesma sala, uma pesquisa de
+        nanofotônica computacional convive com um estudo qualitativo sobre ética no uso de IA
+        por adolescentes; um banco de dados de olimpíada de História convive com uma plataforma
+        de adaptação de provas para estudantes surdos e com TEA. A informática é o método comum;
+        as humanidades definem para quem o método serve.
+      </p>
+      <p>
+        Há ainda uma escolha metodológica constante: <strong style="color:#fff">ferramentas
+        gratuitas e abertas</strong>. Modelos com camada livre, bases vetoriais locais, Python,
+        Colab, frameworks open source. Não por limitação, mas por princípio — o que se constrói
+        aqui precisa ser reprodutível em qualquer campus da rede federal, sem orçamento.
+      </p>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============ EIXOS ============ -->
+<section id="eixos">
+  <div class="wrap">
+    <p class="eyebrow rv c-purple">Eixos de pesquisa</p>
+    <h2 class="rv">Cinco perguntas que organizam o trabalho</h2>
+    <p class="lede rv" style="margin-bottom:44px">
+      As frentes individuais se agrupam em eixos que se retroalimentam — o dado levantado
+      por uma pesquisa costuma virar insumo da seguinte.
+    </p>
+    <div class="axes rv">
+      <div class="axis c-blue">
+        <span class="n">01</span>
+        <h3>IA para inclusão e acessibilidade</h3>
+        <p>Adaptação automatizada de avaliações, descrição de imagens, recursos visuais para o ensino de estudantes surdos e com TEA. Referência normativa: WCAG&nbsp;2.1, eMAG e a Lei Brasileira de Inclusão.</p>
+      </div>
+      <div class="axis c-purple">
+        <span class="n">02</span>
+        <h3>Humanidades digitais</h3>
+        <p>Acervos históricos tratados como dados: modelagem relacional, categorização historiográfica, mineração e plataformas de consulta pública.</p>
+      </div>
+      <div class="axis c-teal">
+        <span class="n">03</span>
+        <h3>Educação, ética e letramento em IA</h3>
+        <p>Como estudantes e docentes realmente usam IA, onde está a fronteira do uso legítimo e o que fazer com a confiança acrítica em respostas geradas.</p>
+      </div>
+      <div class="axis c-red">
+        <span class="n">04</span>
+        <h3>Equidade de gênero em STEM</h3>
+        <p>Diagnóstico da presença e da permanência feminina nos cursos de Informática do campus, seguido de ação interventiva construída a partir das falas das estudantes.</p>
+      </div>
+      <div class="axis c-lime">
+        <span class="n">05</span>
+        <h3>IA para ciência e engenharia</h3>
+        <p>Aprendizado de máquina e LLMs aplicados à predição e ao design inverso de nanoestruturas fotônicas, a partir de simulações numéricas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============ PROJETOS ============ -->
+<section id="projetos">
+  <div class="wrap">
+    <p class="eyebrow rv c-teal">Em andamento</p>
+    <h2 class="rv">Quatro pesquisas em andamento</h2>
+    <p class="lede rv" style="margin-bottom:44px">
+      Cada frente tem bolsista, orientação e cronograma próprios, com registro mensal de
+      desenvolvimento e submissão de artigo ao final do ciclo.
+    </p>
+
+    <div class="cards">
+
+      <article class="card rv c-blue">
+        <div class="meta"><span class="chip on">Acessibilidade</span><span class="chip">Visão computacional</span></div>
+        <h3>Olhar Acessível: descrição automática de imagens</h3>
+        <p>
+          Descrição textual e em áudio de imagens do ambiente escolar para apoio a pessoas com
+          deficiência visual, usando modelos de visão e linguagem gratuitos (BLIP, LLaVA,
+          Florence-2) e síntese de voz livre, com banco de 200 a 300 imagens do campus e
+          avaliação participativa das descrições.
+        </p>
+        <div class="who"><span class="av">RE</span><span><strong>Rayssa Emelly Moura da Silva</strong>Técnico Integrado em Informática · PIBIC Jr · Bolsista CNPq</span></div>
+      </article>
+
+      <article class="card rv c-purple">
+        <div class="meta"><span class="chip on">Humanidades digitais</span><span class="chip">Django</span></div>
+        <h3>ONHB em dados</h3>
+        <p>
+          Plataforma web para sistematização e análise das questões da Olimpíada Nacional em
+          História do Brasil (2009–2024). Envolve matriz de categorização historiográfica —
+          temporalidade, tipo de fonte, habilidade cognitiva, sujeitos históricos —, banco
+          relacional em MySQL e aplicação em Python/Django com CRUD operacional e busca em
+          desenvolvimento.
+        </p>
+        <div class="who"><span class="av">LG</span><span><strong>Leandro Willyan Guimarães Gomes</strong>Técnico Integrado · PIBIC Jr · Cota Campus</span></div>
+      </article>
+
+      <article class="card rv c-lime">
+        <div class="meta"><span class="chip on">Nanofotônica</span><span class="chip">Deep learning</span></div>
+        <h3>LLM-Guided Design v2: design inverso de nanoestruturas ópticas</h3>
+        <p>
+          Agente que prediz geometria e dimensões ideais de nanoestruturas fotônicas a partir de
+          um perfil espectral alvo, treinado com simulações do COMSOL Multiphysics®. A v2 amplia
+          a base para cinco geometrias e para as respostas de absorção e extinção, e enfrenta a
+          não-unicidade do problema inverso com uma arquitetura de Rede Neural Tandem.
+        </p>
+        <div class="who"><span class="av">BI</span><span><strong>Breno Inácio Fialho de Assunção</strong>Engenharia de Telecomunicações · Bolsista FUNCAP/IFCE</span></div>
+      </article>
+
+      <article class="card rv c-teal">
+        <div class="meta"><span class="chip on">RAG</span><span class="chip">Chatbot</span></div>
+        <h3>Assistente Inteligente do IFCE Campus Maranguape</h3>
+        <p>
+          Chatbot acadêmico com Geração Aumentada por Recuperação sobre calendário, regimento,
+          ementas, normativas e editais do campus. Base vetorial gratuita (FAISS ou ChromaDB),
+          LLMs de camada livre e transparência obrigatória sobre a fonte de cada resposta,
+          com avaliação comparada ao atendimento humano da secretaria.
+        </p>
+        <div class="who"><span class="av">JK</span><span><strong>John Keyrrison Lima dos Santos</strong>Técnico Integrado · PIBIC Jr Ações Afirmativas · Cota Campus</span></div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============ FINALIZADOS ============ -->
+<section id="finalizados">
+  <div class="wrap">
+    <p class="eyebrow rv c-red">Concluídas · setembro/2025 – agosto/2026</p>
+    <h2 class="rv">Cinco pesquisas finalizadas</h2>
+    <p class="lede rv" style="margin-bottom:44px">
+      Frentes encerradas do ciclo anterior, todas com levantamento bibliográfico, coleta de
+      dados e artigo submetido ao CONNEPI&nbsp;2026.
+    </p>
+
+    <div class="cards">
+
+      <article class="card rv c-blue">
+        <div class="meta"><span class="chip on">Inclusão</span><span class="chip">LLM</span></div>
+        <h3>Plataforma Agentes de Inclusão</h3>
+        <p>
+          Portal web com agentes de IA especializados que adaptam avaliações escolares para
+          estudantes com necessidades educacionais específicas — simplificação de linguagem,
+          reorganização estrutural das questões e otimização visual, com exportação em PDF.
+          Requisitos mapeados para estudantes surdos e com TEA; interface prototipada no Figma;
+          testes funcionais concluídos.
+        </p>
+        <div class="who"><span class="av">JS</span><span><strong>José Sátiro de Lima</strong>Técnico Integrado em Informática · Bolsista CNPq/IFCE</span></div>
+      </article>
+
+      <article class="card rv c-blue">
+        <div class="meta"><span class="chip on">Libras</span><span class="chip">IA generativa</span></div>
+        <h3>Imagens que falam: História para estudantes surdos</h3>
+        <p>
+          Produção de ilustrações de conceitos históricos substantivos com IA generativa, para
+          apoiar o ensino de História a estudantes surdos. Inclui mapeamento do currículo do IFCE,
+          registro das especificidades linguísticas da Libras, comparação entre Gemini, ChatGPT,
+          DALL·E e Stable Diffusion, e avaliação das imagens por Tradutores e Intérpretes de
+          Língua de Sinais e por estudantes surdos do campus.
+        </p>
+        <div class="who"><span class="av">LW</span><span><strong>Luis Wagner Araújo Colares Filho</strong>Técnico Integrado · Iniciação Científica</span></div>
+      </article>
+
+      <article class="card rv c-red">
+        <div class="meta"><span class="chip on">Gênero em STEM</span><span class="chip">Pesquisa-ação</span></div>
+        <h3>Presença feminina nos cursos de Informática</h3>
+        <p>
+          Pesquisa-ação de abordagem mista sobre ingresso e permanência de mulheres no curso
+          técnico do campus. Reúne matrículas do SUAP (2020–2025), formulários com discentes
+          (n=26) e egressas (n=12) e cinco entrevistas transcritas. O diagnóstico — 46,2% das
+          alunas já pensaram em desistir — resultou numa cartilha institucional de acolhimento
+          e representatividade.
+        </p>
+        <div class="who"><span class="av">RE</span><span><strong>Rayssa Emelly Moura da Silva</strong>Técnico Integrado em Informática · Bolsista CNPq/IFCE</span></div>
+      </article>
+
+      <article class="card rv c-teal">
+        <div class="meta"><span class="chip on">Ética digital</span><span class="chip">Qualitativa</span></div>
+        <h3>Inteligência Artificial na Educação</h3>
+        <p>
+          Investigação qualitativa sobre como estudantes e docentes do ensino técnico usam IA
+          no cotidiano. Entrevistas semiestruturadas, questionários abertos e observação de
+          práticas escolares, com análise temática em QDA Miner Lite. Revelou perfis distintos
+          — o "tutor particular" discente contra a busca docente por produtividade — e um ponto
+          crítico: metade dos estudantes confia plenamente na resposta gerada, sem checagem.
+        </p>
+        <div class="who"><span class="av">A</span><span><strong>Arthur</strong>Técnico Integrado · Iniciação Científica</span></div>
+      </article>
+
+      <article class="card rv c-teal">
+        <div class="meta"><span class="chip on">Ensino de Matemática</span><span class="chip">Orange</span></div>
+        <h3>Aprendizado de Máquina com Orange no Ensino de Matemática</h3>
+        <p>
+          Uso da plataforma Orange para tornar visíveis conceitos matemáticos que costumam ficar
+          restritos à fórmula: média, variância, probabilidade e correlação emergem de fluxos com
+          <span style="font-family:var(--mono);font-size:.85em">Distributions</span>,
+          <span style="font-family:var(--mono);font-size:.85em">Scatter&nbsp;Plot</span> e
+          <span style="font-family:var(--mono);font-size:.85em">Test&nbsp;and&nbsp;Score</span>.
+          Da exploração de datasets clássicos à construção de bases de dados reais do campus.
+        </p>
+        <div class="who"><span class="av">MY</span><span><strong>Maria Yasmim Teixeira Domingos</strong>Técnico Integrado · Iniciação Científica</span></div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============ TRAJETÓRIA ============ -->
+<section id="trajetoria">
+  <div class="wrap two">
+    <div>
+      <p class="eyebrow c-red">Trajetória</p>
+      <h2>De 2020 até aqui</h2>
+      <p style="font-size:.94rem;color:var(--ink-dim);margin-top:16px">
+        O laboratório não começou com um plano de pesquisa formal. Começou com uma impressora
+        3D, uma pandemia e cinco estudantes dispostos a levar um projeto até o fim.
+      </p>
+    </div>
+
+    <div class="tl">
+      <div class="tl-item rv c-blue">
+        <div class="tl-year">2020</div>
+        <h3>Nasceu na pandemia</h3>
+        <p>
+          Uma <b>Creality Ender 3</b> no laboratório de eletrônica e cinco estudantes imprimindo
+          protetores faciais para a rede de saúde de Maranguape: 25 unidades para o <b>Hospital
+          Municipal Dr. Argeu Braga Herbster</b>, 25 para a <b>UPA Dr. Alfredo Marques</b> e mais
+          50 para a <b>Seinfra</b>. Em outubro o grupo virou projeto de extensão sob o nome
+          <b>Primeira Impressão</b>. Em paralelo nascia o <b>Otto</b>, robô bípede impresso em 3D
+          com Arduino Nano e Bluetooth — e os primeiros minicursos de Arduino do laboratório.
+        </p>
+      </div>
+      <div class="tl-item rv c-purple">
+        <div class="tl-year">2021</div>
+        <h3>Pausa e retomada</h3>
+        <p>
+          A segunda onda suspendeu as atividades presenciais entre fevereiro e abril. O
+          laboratório voltou a funcionar em novembro, com uma nova turma de bolsistas e os
+          projetos de robótica retomados de onde tinham parado.
+        </p>
+      </div>
+      <div class="tl-item rv c-red">
+        <div class="tl-year">2023</div>
+        <h3>A safra que consolidou o laboratório</h3>
+        <p>
+          Sete projetos de PIBIC Jr conduzidos em paralelo: <b>Vamos Merendar?</b> (app contra o
+          desperdício de alimentos no campus), <b>SiRaL</b> (sistema de rastreio de alunos),
+          <b>InfoMarket</b> (visão computacional para detecção de ofertas em encartes),
+          <b>Capistrano</b> (repositório web pelos 170 anos do historiador), <b>Scratch e TEA</b>
+          (ensino de matemática para adolescentes autistas), <b>Mulheres nas Exatas</b> e a
+          <b>implantação do Scrum</b> no próprio laboratório.
+        </p>
+      </div>
+      <div class="tl-item rv c-purple">
+        <div class="tl-year">2023</div>
+        <h3>Fora dos muros</h3>
+        <p>
+          Semifinal do <b>Desafio Liga Jovem</b> com o Vamos Merendar?; <b>Power4Girls</b>;
+          <b>GamesThons</b>; <b>MaratonaTech</b>; participação no <b>ENICIT 2023</b> com dez
+          trabalhos discentes; e classificação do Vamos Merendar? para a <b>FEBRACE 2023–24</b>.
+        </p>
+      </div>
+      <div class="tl-item rv c-teal">
+        <div class="tl-year">2024</div>
+        <h3>Registro e projeção</h3>
+        <p>
+          Relato da experiência do laboratório levado ao <b>Computer on the Beach</b>, com foco na
+          trajetória das meninas do campus na tecnologia. Segunda edição do <b>Power4Girls</b>.
+        </p>
+      </div>
+      <div class="tl-item rv c-blue">
+        <div class="tl-year">2025</div>
+        <h3>Sala temática, desfile e ENICIT em casa</h3>
+        <p>
+          Quase <b>190 visitantes</b> passaram pela sala temática do LEIAH no <b>Universo IFCE</b>,
+          uma das mais procuradas do evento — visão computacional rodando ao vivo, tablets com o
+          Vamos Merendar e palestra sobre <b>algoritmos genéticos</b>. Em setembro o laboratório
+          desfilou pela primeira vez no <b>7 de Setembro</b> de Maranguape, e em outubro o campus
+          sediou o <b>ENICIT 2025</b>.
+        </p>
+      </div>
+      <div class="tl-item rv c-lime">
+        <div class="tl-year">2025 – 2026</div>
+        <h3>O ciclo atual</h3>
+        <p>
+          Sete frentes simultâneas de setembro de 2025 a agosto de 2026, sob o Edital nº 4/2025
+          PRPI/Reitoria-IFCE e o PIBIC Jr Ações Afirmativas, com apoio de <b>CNPq</b> e
+          <b>FUNCAP</b>. Registro mensal de desenvolvimento por bolsista e submissão coletiva
+          ao <b>CONNEPI 2026</b>.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REGRAS ============ -->
+<section class="rules-sec">
+  <div class="wrap">
+    <p class="eyebrow rv c-lime">Cultura</p>
+    <h2 class="rv">Regras de convivência</h2>
+    <p class="lede rv">
+      Estão impressas na parede do laboratório. São curtas de propósito.
+    </p>
+    <div class="rules">
+      <div class="rule-card rv c-blue"><span>01</span><p>Ajudar o colega não gera concorrência, gera resultados.</p></div>
+      <div class="rule-card rv c-purple"><span>02</span><p>Cuide do laboratório. Esse ambiente é de todos.</p></div>
+      <div class="rule-card rv c-teal"><span>03</span><p>Dê o seu melhor.</p></div>
+      <div class="rule-card rv c-red"><span>04</span><p>Uso exclusivo por estudantes vinculados a alguma pesquisa.</p></div>
+      <div class="rule-card rv c-lime"><span>05</span><p>Se tem alguém trabalhando, silêncio é necessário.</p></div>
+      <div class="rule-card rv"><span>06</span><p>O respeito é sempre importante.</p></div>
+    </div>
+    <p class="rv" style="margin-top:30px;font-family:var(--mono);font-size:.8rem;color:var(--ink-dim);letter-spacing:.14em">
+      TO&nbsp;DO &nbsp;→&nbsp; DOING &nbsp;→&nbsp; DONE
+    </p>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ============ EQUIPE ============ -->
+<section id="equipe">
+  <div class="wrap">
+    <p class="eyebrow rv">Orientação</p>
+    <h2 class="rv">Quem conduz</h2>
+    <p class="lede rv">
+      As frentes são orientadas por docentes do campus, em regime de encontros semanais com
+      cada bolsista e avaliações parciais a cada dois meses.
+    </p>
+    <div class="people">
+      <div class="person rv c-blue">
+        <div class="av">JB</div>
+        <strong>Jessyca Almeida Bessa</strong>
+        <span>Coordenação do laboratório · Doutorado · Licenciatura em Matemática e Técnico Integrado em Informática</span>
+      </div>
+      <div class="person rv c-purple">
+        <div class="av">AA</div>
+        <strong>Ana Amélia Rodrigues de Oliveira</strong>
+        <span>Orientação · História e humanidades digitais</span>
+      </div>
+      <div class="person rv c-teal">
+        <div class="av">ML</div>
+        <strong>Maria de Lourdes da Silva Neta</strong>
+        <span>Orientação · Técnico Integrado em Informática</span>
+      </div>
+      <div class="person rv c-red">
+        <div class="av">FM</div>
+        <strong>Francisco Marks Cruz</strong>
+        <span>Orientação · Técnico Integrado em Informática</span>
+      </div>
+      <div class="person rv c-blue">
+        <div class="av">TM</div>
+        <strong>Thomaz Maia</strong>
+        <span>Orientação · Técnico Integrado em Informática</span>
+      </div>
+      <div class="person rv c-purple">
+        <div class="av">DC</div>
+        <strong>Denilson Cursino</strong>
+        <span>Orientação · Técnico Integrado em Informática</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="cta rv">
+      <h2>Quer fazer pesquisa no LEIAH?</h2>
+      <p>
+        As quatro frentes em andamento já estão com bolsista. Se você estuda no IFCE Campus
+        Maranguape e quer conduzir uma pesquisa própria — do levantamento bibliográfico ao artigo
+        submetido — fale com a coordenação sobre as próximas seleções.
+      </p>
+      <a class="btn btn-p" href="mailto:bessa.jessyca@ifce.edu.br?subject=Interesse%20em%20pesquisa%20no%20LEIAH">Falar com a coordenação &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div style="max-width:340px">
+        <a class="brand" href="#topo">
+          <img src="assets/leiah-icon.png" alt="">
+          <span style="display:flex;flex-direction:column;line-height:1.1">
+            <b>LEIAH</b>
+            <span>Eletrônica, Informática Aplicada e Humanidades</span>
+          </span>
+        </a>
+        <p>
+          Laboratório de pesquisa do Instituto Federal de Educação, Ciência e Tecnologia do
+          Ceará — Campus Maranguape.
+        </p>
+      </div>
+      <div class="foot-col">
+        <h4>Navegar</h4>
+        <a href="#sobre">O laboratório</a>
+        <a href="#eixos">Eixos de pesquisa</a>
+        <a href="#projetos">Em andamento</a>
+        <a href="#trajetoria">Trajetória</a>
+      </div>
+      <div class="foot-col">
+        <h4>Contato</h4>
+        <a href="mailto:bessa.jessyca@ifce.edu.br">bessa.jessyca@ifce.edu.br</a>
+        <span>IFCE Campus Maranguape — CE</span>
+      </div>
+      <div class="foot-col">
+        <h4>Fomento</h4>
+        <span>CNPq — PIBIC Jr</span>
+        <span>FUNCAP</span>
+        <span>PRPI / Reitoria IFCE</span>
+      </div>
+    </div>
+    <div class="copy">
+      <span>© 2026 LEIAH · IFCE Campus Maranguape</span>
+      <span>Ciclo de pesquisa set/2025 – ago/2026</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  if(!('IntersectionObserver' in window)) return;   // sem observer, tudo já está visível
+  var els = document.querySelectorAll('.rv');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){
+        en.target.classList.add('in');
+        io.unobserve(en.target);
+      }
+    });
+  },{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+  els.forEach(function(e,i){
+    e.style.transitionDelay = (Math.min(i,6)*55) + 'ms';
+    io.observe(e);
+  });
+})();
+</script>
+
+</body>
+</html>
